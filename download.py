@@ -1,6 +1,7 @@
 import requests
 
-base_url = "https://docs.anthropic.com/en/docs/claude-code"
+base_url_en = "https://docs.anthropic.com/en/docs/claude-code"
+base_url_zh = "https://docs.anthropic.com/zh-CN/docs/claude-code"
 
 cc_docs_names = [
     "overview",
@@ -39,7 +40,8 @@ cc_docs_names = [
 ]
 
 
-def download_docs(doc_names: list[str]):
+def download_docs(doc_names: list[str], lang: str = "en|zh-CN") -> None:
+    base_url = base_url_zh if lang == "zh-CN" else base_url_en
     for doc_name in doc_names:
         url = f"{base_url}/{doc_name}.md"
         response = requests.get(url)
@@ -53,4 +55,4 @@ def download_docs(doc_names: list[str]):
 
 
 if __name__ == "__main__":
-    download_docs(cc_docs_names)
+    download_docs(cc_docs_names, lang="zh-CN")
